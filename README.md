@@ -26,3 +26,25 @@
 ## Google Analytics
 Retain your existing Google Analytics tag in the `<head>`, or paste it there after the title/meta tags.
 The form sends only a generic `rent_estimate_generated` event and does not transmit the entered street address.
+
+# SavvyRent website update
+
+Upload these files to the root of the GitHub Pages repository:
+
+- index.html
+- style.css
+- app.js
+
+Replace the old index.html. Keep the existing CNAME file so savvyrent.com remains connected.
+
+The frontend calls:
+
+https://savvyrent-hud-api.abobroy.workers.dev/api/rent-report
+
+The Cloudflare Worker must support POST /api/rent-report and allow these CORS origins:
+
+- https://savvyrent.com
+- https://www.savvyrent.com
+
+After committing the files, wait for GitHub Pages to deploy and hard-refresh the browser with Ctrl+F5.
+
