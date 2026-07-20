@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B7B2XDY49R"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-B7B2XDY49R');
+    </script>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>SavvyRent | Rental Market Intelligence</title>
+
+    <meta name="description"
+          content="SavvyRent provides rental market information, rent estimates, neighborhood statistics, landlord resources, tenant resources, and rental property calculators.">
+
+    <link rel="canonical" href="https://savvyrent.com/">
+
+    <!-- Google Analytics -->
+    <script async
+        src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX">
+    </script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag("js", new Date());
+        gtag("config", "G-XXXXXXXXXX");
+    </script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: #17212b;
+            background: #f5f7f9;
+        }
+
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid #dfe4e8;
+            padding: 18px 24px;
+        }
+
+        nav {
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 700;
+            text-decoration: none;
+            color: #156b52;
+        }
+
+        .nav-links a {
+            margin-left: 22px;
+            text-decoration: none;
+            color: #35424d;
+        }
+
+        .hero {
+            padding: 95px 24px;
+            text-align: center;
+            background: linear-gradient(
+                135deg,
+                #e8f6f1,
+                #f7fbfa
+            );
+        }
+
+        .hero-content {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        h1 {
+            margin: 0 0 20px;
+            font-size: clamp(38px, 6vw, 64px);
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            max-width: 720px;
+            margin: 0 auto 35px;
+            font-size: 21px;
+            color: #4b5963;
+        }
+
+        .search-form {
+            max-width: 720px;
+            margin: auto;
+            display: flex;
+            background: white;
+            padding: 8px;
+            border: 1px solid #ccd5da;
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .search-form input {
+            flex: 1;
+            min-width: 0;
+            border: none;
+            padding: 15px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-form button,
+        .button {
+            border: none;
+            border-radius: 7px;
+            padding: 15px 24px;
+            background: #157456;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .message {
+            min-height: 26px;
+            margin-top: 16px;
+            color: #48545e;
+        }
+
+        .section {
+            max-width: 1100px;
+            margin: auto;
+            padding: 75px 24px;
+        }
+
+        .section h2 {
+            margin-top: 0;
+            text-align: center;
+            font-size: 34px;
+        }
+
+        .section-intro {
+            max-width: 700px;
+            margin: 0 auto 40px;
+            text-align: center;
+            color: #56636c;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(230px, 1fr));
+            gap: 22px;
+        }
+
+        .card {
+            padding: 26px;
+            background: white;
+            border: 1px solid #e0e5e8;
+            border-radius: 12px;
+        }
+
+        .card h3 {
+            margin-top: 0;
+        }
+
+        .signup {
+            text-align: center;
+            background: #172f29;
+            color: white;
+            border-radius: 16px;
+            padding: 48px 24px;
+        }
+
+        .signup p {
+            max-width: 650px;
+            margin: 0 auto 28px;
+            color: #d8e5e1;
+        }
+
+        footer {
+            padding: 35px 24px;
+            text-align: center;
+            color: #65717a;
+        }
+
+        @media (max-width: 650px) {
+            .nav-links {
+                display: none;
+            }
+
+            .search-form {
+                display: block;
+            }
+
+            .search-form button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <nav>
+        <a class="logo" href="/">SavvyRent</a>
+
+        <div class="nav-links">
+            <a href="#tools">Tools</a>
+            <a href="#landlords">Landlords</a>
+            <a href="#tenants">Tenants</a>
+            <a href="#about">About</a>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Rental market intelligence made simple</h1>
+
+            <p class="subtitle">
+                Research market rents, understand neighborhoods,
+                evaluate rental properties, and make informed
+                rental decisions.
+            </p>
+
+            <form class="search-form" id="address-form">
+                <input
+                    id="address"
+                    type="text"
+                    placeholder="Enter a property address"
+                    aria-label="Property address"
+                    required
+                >
+
+                <button type="submit">
+                    Check Rent
+                </button>
+            </form>
+
+            <div class="message" id="message"></div>
+        </div>
+    </section>
+
+    <section class="section" id="tools">
+        <h2>What SavvyRent will offer</h2>
+
+        <p class="section-intro">
+            We are building practical rental intelligence tools
+            for renters, landlords, and real-estate investors.
+        </p>
+
+        <div class="cards">
+            <article class="card">
+                <h3>Rent estimates</h3>
+                <p>
+                    Estimate market rent using property details,
+                    nearby rental activity, and neighborhood data.
+                </p>
+            </article>
+
+            <article class="card">
+                <h3>Neighborhood statistics</h3>
+                <p>
+                    Compare rents, housing supply, affordability,
+                    and historical rental-market trends.
+                </p>
+            </article>
+
+            <article class="card">
+                <h3>Rent calculators</h3>
+                <p>
+                    Calculate affordability, effective rent,
+                    rent increases, and move-in costs.
+                </p>
+            </article>
+
+            <article class="card">
+                <h3>Investment analysis</h3>
+                <p>
+                    Evaluate cash flow, capitalization rate,
+                    cash-on-cash return, and vacancy assumptions.
+                </p>
+            </article>
+        </div>
+    </section>
+
+    <section class="section" id="landlords">
+        <div class="cards">
+            <article class="card">
+                <h3>For landlords</h3>
+                <p>
+                    Learn how to price rental units, compare local
+                    rents, reduce vacancies, and evaluate renewals.
+                </p>
+            </article>
+
+            <article class="card" id="tenants">
+                <h3>For tenants</h3>
+                <p>
+                    Understand local rent levels, affordability,
+                    lease costs, and neighborhood rental trends.
+                </p>
+            </article>
+        </div>
+    </section>
+
+    <section class="section" id="about">
+        <div class="signup">
+            <h2>SavvyRent is coming soon</h2>
+
+            <p>
+                We are developing a better way to research rents
+                and rental-property economics. Check back as new
+                tools and market reports become available.
+            </p>
+
+            <a class="button"
+               href="mailto:info@savvyrent.com?subject=SavvyRent%20Updates">
+                Request Updates
+            </a>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>
+        &copy; <span id="year"></span> SavvyRent.
+        Rental market information for educational purposes.
+    </p>
+</footer>
+
+<script>
+    document.getElementById("year").textContent =
+        new Date().getFullYear();
+
+    document.getElementById("address-form")
+        .addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const address =
+                document.getElementById("address").value.trim();
+
+            document.getElementById("message").textContent =
+                "Thank you. Address-based rent estimates are coming soon.";
+
+            if (typeof gtag === "function") {
+                gtag("event", "address_search", {
+                    search_term: address
+                });
+            }
+        });
+</script>
+
+</body>
+</html>
