@@ -9,239 +9,90 @@
       gtag('config', 'G-B7B2XDY49R');
     </script>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>SavvyRent | Public-data rent benchmark</title>
-  <meta name="description" content="Estimate a rental benchmark using public Census data and property details.">
-  <link rel="canonical" href="https://savvyrent.com/">
-  <style>
-    :root{--bg:#f5f7f8;--card:#fff;--ink:#15231f;--muted:#61706a;--brand:#176c52;--line:#dce5e1;--warn:#fff7df}
-    *{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
-    header{background:#fff;border-bottom:1px solid var(--line);padding:18px 24px}
-    nav{max-width:1180px;margin:auto;display:flex;justify-content:space-between;align-items:center}
-    .logo{font-weight:800;font-size:26px;color:var(--brand);text-decoration:none}
-    main{max-width:1180px;margin:auto;padding:42px 20px 80px}
-    .hero{text-align:center;margin-bottom:30px}.hero h1{font-size:clamp(34px,6vw,60px);line-height:1.05;margin:10px 0}
-    .hero p{max-width:780px;margin:0 auto;color:var(--muted);font-size:19px}
-    .notice{background:var(--warn);border:1px solid #ead79c;border-radius:10px;padding:14px 16px;margin:24px 0}
-    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}.panel{grid-column:span 12;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
-    @media(min-width:900px){.inputs{grid-column:span 5}.report{grid-column:span 7}}
-    h2{margin-top:0} h3{margin-bottom:8px}
-    .fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.full{grid-column:1/-1}
-    label{display:block;font-size:13px;font-weight:700;margin-bottom:5px}
-    input,select{width:100%;padding:11px;border:1px solid #bdcbc5;border-radius:8px;background:#fff;font-size:15px}
-    button{width:100%;padding:13px;border:0;border-radius:8px;background:var(--brand);color:#fff;font-weight:800;font-size:16px;cursor:pointer;margin-top:14px}
-    button:disabled{opacity:.55;cursor:wait}.status{min-height:24px;margin-top:10px;color:var(--muted)}
-    .metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.metric{border:1px solid var(--line);border-radius:10px;padding:15px}
-    .metric strong{display:block;font-size:24px}.metric span{color:var(--muted);font-size:13px}
-    .wide{grid-column:1/-1}.bar{height:12px;background:#edf1ef;border-radius:999px;overflow:hidden}.bar>div{height:100%;background:var(--brand)}
-    table{width:100%;border-collapse:collapse;margin-top:8px}td,th{padding:9px;border-bottom:1px solid var(--line);text-align:left;font-size:14px}
-    .small{font-size:12px;color:var(--muted)} .hidden{display:none}
-    footer{text-align:center;color:var(--muted);padding:40px 20px}
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SavvyRent | Rental Intelligence</title>
+  <meta name="description" content="Estimate rent, neighborhood trends, HUD benchmarks, vacancy indicators, and investment metrics for a U.S. rental address.">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<header><nav><a class="logo" href="/">SavvyRent</a><span>Public-data prototype</span></nav></header>
-<main>
-  <section class="hero">
-    <h1>Estimate rent with public market data</h1>
-    <p>Enter a U.S. address and property details. SavvyRent combines Census neighborhood rent data with transparent property adjustments.</p>
-  </section>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="SavvyRent home">
+        <span class="brand-mark">S</span><span>SavvyRent</span>
+      </a>
+      <nav><a href="#estimate">Estimate</a><a href="#how-it-works">How it works</a></nav>
+    </div>
+  </header>
 
-  <div class="notice"><strong>Important:</strong> This is a benchmark, not an appraisal. Public Census data describes area-level rents paid by existing tenants and does not provide live comparable rental listings. Results may lag the current market.</div>
-
-  <div class="grid">
-    <section class="panel inputs">
-      <h2>Property details</h2>
-      <form id="rentForm">
-        <div class="fields">
-          <div class="full"><label for="address">Street address</label><input id="address" required placeholder="123 Main St, Boston, MA 02116"></div>
-          <div><label for="unitType">Unit type</label><select id="unitType"><option>Entire unit</option><option>Room</option><option>Accessory dwelling unit</option></select></div>
-          <div><label for="bedrooms">Bedrooms</label><select id="bedrooms"><option value="0">Studio</option><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4+</option></select></div>
-          <div><label for="bathrooms">Bathrooms</label><input id="bathrooms" type="number" min=".5" max="10" step=".5" value="1"></div>
-          <div><label for="sqft">Square footage</label><input id="sqft" type="number" min="100" placeholder="Optional"></div>
-          <div><label for="propertyType">Property type</label><select id="propertyType"><option>Apartment</option><option>Condo</option><option>Single-family</option><option>Townhouse</option><option>Duplex / multifamily</option></select></div>
-          <div><label for="condition">Condition</label><select id="condition"><option value="-0.08">Needs updating</option><option value="0" selected>Average</option><option value="0.07">Updated</option><option value="0.14">Recently renovated</option><option value="0.22">Luxury</option></select></div>
-          <div><label for="parking">Parking</label><select id="parking"><option value="0">None</option><option value="0.03">Street / permit</option><option value="0.06">One space</option><option value="0.09">Garage / multiple</option></select></div>
-          <div><label for="laundry">Laundry</label><select id="laundry"><option value="-0.03">None</option><option value="0">Shared</option><option value="0.05">In-unit</option></select></div>
-          <div><label for="furnished">Furnishing</label><select id="furnished"><option value="0">Unfurnished</option><option value="0.10">Furnished</option></select></div>
-          <div><label for="leaseStart">Lease start</label><input id="leaseStart" type="date"></div>
-          <div><label for="purchasePrice">Purchase price</label><input id="purchasePrice" type="number" min="0" placeholder="For ROI"></div>
-          <div><label for="monthlyCosts">Monthly operating costs</label><input id="monthlyCosts" type="number" min="0" placeholder="Tax, insurance, HOA, etc."></div>
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Rental intelligence from public data</p>
+          <h1>Understand a rental property before you price it.</h1>
+          <p class="hero-copy">Enter a U.S. address and property details to receive an estimated rent, likely range, HUD comparison, neighborhood indicators, rent trends, and investment metrics.</p>
+          <div class="hero-badges"><span>Census geocoding</span><span>ACS neighborhood data</span><span>HUD Fair Market Rent</span></div>
         </div>
-        <button id="estimateBtn" type="submit">Calculate public-data estimate</button>
-        <div class="status" id="status"></div>
-      </form>
-    </section>
-
-    <section class="panel report">
-      <h2>Rental intelligence report</h2>
-      <div id="empty">Complete the form to generate a report.</div>
-      <div id="results" class="hidden">
-        <p id="matchedAddress" class="small"></p>
-        <div class="metrics">
-          <div class="metric"><span>Estimated monthly rent</span><strong id="estimate"></strong></div>
-          <div class="metric"><span>Likely range</span><strong id="range"></strong></div>
-          <div class="metric"><span>Confidence score</span><strong id="confidence"></strong><div class="bar"><div id="confidenceBar"></div></div></div>
-          <div class="metric"><span>Rent per square foot</span><strong id="rentSqft"></strong></div>
-          <div class="metric"><span>Median neighborhood rent</span><strong id="medianRent"></strong></div>
-          <div class="metric"><span>Rental vacancy indicator</span><strong id="vacancy"></strong></div>
-          <div class="metric"><span>12-month market trend</span><strong id="trend12"></strong></div>
-          <div class="metric"><span>36-month market trend</span><strong id="trend36"></strong></div>
+        <div class="hero-card">
+          <div class="hero-stat"><span class="hero-stat-label">One request</span><strong>One rental report</strong></div>
+          <p>SavvyRent combines address matching, neighborhood statistics, HUD benchmarks, and transparent property adjustments through a single Rental Intelligence API.</p>
         </div>
-
-        <h3>Public-data benchmarks</h3>
-        <table>
-          <tbody id="benchmarks"></tbody>
-        </table>
-
-        <h3>Comparable rentals</h3>
-        <p>This free public-data version cannot display live individual comparable listings. It uses Census tract and county benchmarks instead. Live comps require a licensed listings source.</p>
-
-        <h3>HUD fair-market rent comparison</h3>
-        <p id="hudMessage">HUD FMR is not fetched directly in this static GitHub Pages version because the official HUD API requires credentials that should not be exposed in browser code. Add a small serverless backend to enable it safely.</p>
-
-        <h3>Investment metrics</h3>
-        <table><tbody id="investment"></tbody></table>
-
-        <p class="small" id="methodology"></p>
       </div>
     </section>
-  </div>
-</main>
-<footer>© <span id="year"></span> SavvyRent. Informational estimates only.</footer>
 
-<script>
-const ACS_YEARS=[2024,2023,2022,2021];
-const $=id=>document.getElementById(id);
-$("year").textContent=new Date().getFullYear();
-$("leaseStart").value=new Date().toISOString().slice(0,10);
+    <section id="estimate" class="section">
+      <div class="container layout">
+        <div class="panel form-panel">
+          <div class="section-heading"><p class="eyebrow">Create a report</p><h2>Rental property details</h2></div>
+          <form id="rent-form">
+            <div class="field full"><label for="address">Street address</label><input id="address" name="address" type="text" value="829 Beacon St, Boston, MA 02215" autocomplete="street-address" required></div>
+            <div class="form-grid">
+              <div class="field"><label for="unitType">Unit type</label><select id="unitType" name="unitType"><option value="entire unit">Entire unit</option><option value="room">Room</option></select></div>
+              <div class="field"><label for="propertyType">Property type</label><select id="propertyType" name="propertyType"><option value="apartment">Apartment</option><option value="condo">Condo</option><option value="single-family">Single-family</option><option value="townhouse">Townhouse</option><option value="duplex">Duplex</option></select></div>
+              <div class="field"><label for="bedrooms">Bedrooms</label><select id="bedrooms" name="bedrooms"><option value="0">Studio</option><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4+</option></select></div>
+              <div class="field"><label for="bathrooms">Bathrooms</label><input id="bathrooms" name="bathrooms" type="number" value="1" min="0.5" max="10" step="0.5" required></div>
+              <div class="field"><label for="squareFeet">Square feet</label><input id="squareFeet" name="squareFeet" type="number" value="950" min="100" max="20000" step="1"></div>
+              <div class="field"><label for="condition">Condition</label><select id="condition" name="condition"><option value="needs updating">Needs updating</option><option value="average">Average</option><option value="updated" selected>Updated</option><option value="recently renovated">Recently renovated</option><option value="luxury">Luxury</option></select></div>
+              <div class="field"><label for="parking">Parking</label><select id="parking" name="parking"><option value="none" selected>None</option><option value="street">Street</option><option value="permit">Permit</option><option value="one space">One space</option><option value="garage">Garage</option><option value="multiple">Multiple spaces</option></select></div>
+              <div class="field"><label for="laundry">Laundry</label><select id="laundry" name="laundry"><option value="none">None</option><option value="shared" selected>Shared</option><option value="in-unit">In-unit</option></select></div>
+              <div class="field"><label for="furnishing">Furnishing</label><select id="furnishing" name="furnishing"><option value="unfurnished" selected>Unfurnished</option><option value="furnished">Furnished</option></select></div>
+              <div class="field"><label for="leaseStartDate">Lease start</label><input id="leaseStartDate" name="leaseStartDate" type="date"></div>
+              <div class="field"><label for="purchasePrice">Purchase price <span>optional</span></label><input id="purchasePrice" name="purchasePrice" type="number" min="1" step="1000" placeholder="850000"></div>
+              <div class="field"><label for="monthlyOperatingCosts">Monthly operating costs <span>optional</span></label><input id="monthlyOperatingCosts" name="monthlyOperatingCosts" type="number" min="0" step="50" placeholder="1400"></div>
+            </div>
+            <div id="form-error" class="alert error hidden" role="alert"></div>
+            <button id="submit-button" class="primary-button" type="submit"><span>Generate rental report</span></button>
+            <p class="form-note">Estimates are informational and should be checked against current local listings.</p>
+          </form>
+        </div>
 
-function money(v){return new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0}).format(v)}
-function pct(v){return Number.isFinite(v)?`${v>=0?"+":""}${v.toFixed(1)}%`:"N/A"}
-function jsonp(url){
-  return new Promise((resolve,reject)=>{
-    const cb="savvyRentCb_"+Date.now()+"_"+Math.floor(Math.random()*10000);
-    const s=document.createElement("script");
-    window[cb]=data=>{resolve(data);cleanup()};
-    function cleanup(){delete window[cb];s.remove()}
-    s.onerror=()=>{cleanup();reject(new Error("Address lookup failed"))};
-    s.src=url+(url.includes("?")?"&":"?")+"format=jsonp&callback="+cb;
-    document.body.appendChild(s);
-  });
-}
-async function geocode(address){
-  const url="https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress?benchmark=Public_AR_Current&vintage=Current_Current&address="+encodeURIComponent(address);
-  const data=await jsonp(url);
-  const m=data?.result?.addressMatches?.[0];
-  if(!m) throw new Error("Address was not matched by the U.S. Census Geocoder.");
-  const g=m.geographies||{};
-  const tract=(g["Census Tracts"]||[])[0];
-  const county=(g["Counties"]||[])[0];
-  const state=(g["States"]||[])[0];
-  if(!tract||!county||!state) throw new Error("Census geography was not returned for this address.");
-  return {
-    matched:m.matchedAddress,
-    state:state.STATE||tract.STATE,
-    county:county.COUNTY||tract.COUNTY,
-    tract:tract.TRACT,
-    stateName:state.NAME,
-    countyName:county.NAME
-  };
-}
-async function acs(year,geo,level="tract"){
-  const vars="NAME,B25064_001E,B25002_001E,B25002_002E,B25002_003E,B25003_003E";
-  let url=`https://api.census.gov/data/${year}/acs/acs5?get=${vars}`;
-  if(level==="tract") url+=`&for=tract:${geo.tract}&in=state:${geo.state}%20county:${geo.county}`;
-  else url+=`&for=county:${geo.county}&in=state:${geo.state}`;
-  const r=await fetch(url);
-  if(!r.ok) throw new Error(`ACS ${year} request failed`);
-  const rows=await r.json();
-  if(rows.length<2) throw new Error(`No ACS ${year} data`);
-  const h=rows[0],v=rows[1],o={};h.forEach((k,i)=>o[k]=v[i]);
-  return {
-    name:o.NAME,
-    median:+o.B25064_001E,
-    total:+o.B25002_001E,
-    occupied:+o.B25002_002E,
-    vacant:+o.B25002_003E,
-    renterOccupied:+o.B25003_003E,
-    year
-  };
-}
-function bedroomFactor(b){return [0.82,1,1.28,1.58,1.9][Math.min(+b,4)]}
-function seasonalFactor(date){
-  if(!date) return 0;
-  const m=new Date(date+"T12:00:00").getMonth()+1;
-  return ({1:-.03,2:-.03,3:-.01,4:.01,5:.03,6:.05,7:.05,8:.04,9:.02,10:0,11:-.02,12:-.03})[m]||0;
-}
-function confidenceScore(tract){
-  let s=55;
-  if(tract.renterOccupied>=1000)s+=15; else if(tract.renterOccupied>=400)s+=8;
-  const vac=tract.total?tract.vacant/tract.total:0;
-  if(vac>.01&&vac<.2)s+=8;
-  if(tract.median>0)s+=12;
-  return Math.min(90,s);
-}
-$("rentForm").addEventListener("submit",async e=>{
-  e.preventDefault();
-  const btn=$("estimateBtn");btn.disabled=true;$("status").textContent="Matching address and loading Census data…";
-  try{
-    const geo=await geocode($("address").value.trim());
-    const tractSeries=[]; for(const y of ACS_YEARS){try{tractSeries.push(await acs(y,geo,"tract"))}catch(_){ }}
-    if(!tractSeries.length) throw new Error("No Census rent data was found for this tract.");
-    const tract=tractSeries[0];
-    let county; try{county=await acs(tract.year,geo,"county")}catch(_){county=null}
-    const b=+$("bedrooms").value;
-    let adj=bedroomFactor(b)-1;
-    adj+=+$("condition").value + +$("parking").value + +$("laundry").value + +$("furnished").value;
-    adj+=seasonalFactor($("leaseStart").value);
-    const baths=+$("bathrooms").value||1; adj+=(baths-1)*.025;
-    const ptype=$("propertyType").value;
-    if(ptype==="Single-family")adj+=.08;
-    if(ptype==="Condo")adj+=.04;
-    if($("unitType").value==="Room")adj-=.48;
-    const estimate=Math.max(400,Math.round((tract.median*(1+adj))/10)*10);
-    const conf=confidenceScore(tract);
-    const spread=conf>=80?.10:conf>=65?.15:.22;
-    const low=Math.round(estimate*(1-spread)/10)*10, high=Math.round(estimate*(1+spread)/10)*10;
-    const sqft=+$("sqft").value;
-    const vacRate=tract.total?tract.vacant/tract.total*100:NaN;
-    const y0=tractSeries[0],y1=tractSeries.find(x=>x.year===y0.year-1);
-    const y3=tractSeries.find(x=>x.year===y0.year-3);
-    const t12=y1?.median>0?(y0.median/y1.median-1)*100:NaN;
-    const t36=y3?.median>0?(y0.median/y3.median-1)*100:NaN;
+        <aside class="panel results-panel" aria-live="polite">
+          <div id="empty-state" class="empty-state"><div class="empty-icon">⌂</div><h2>Your report will appear here</h2><p>SavvyRent will combine the matched address, Census neighborhood statistics, HUD rent benchmarks, and property adjustments.</p></div>
+          <div id="loading-state" class="loading-state hidden"><div class="spinner" aria-hidden="true"></div><h2>Building your report</h2><p>Matching the address and gathering public data…</p></div>
+          <div id="report" class="report hidden">
+            <div class="report-header"><div><p class="eyebrow">Rental estimate</p><h2 id="matched-address"></h2></div><span id="quality-badge" class="quality-badge"></span></div>
+            <div class="estimate-card"><span>Estimated monthly rent</span><strong id="estimated-rent"></strong><p id="rent-range"></p></div>
+            <div class="metric-grid">
+              <div class="metric"><span>Confidence</span><strong id="confidence"></strong></div>
+              <div class="metric"><span>Rent / sq. ft.</span><strong id="rent-per-sqft"></strong></div>
+              <div class="metric"><span>HUD FMR</span><strong id="hud-fmr"></strong></div>
+              <div class="metric"><span>ACS tract median</span><strong id="acs-rent"></strong></div>
+            </div>
+            <section class="result-section"><h3>Neighborhood indicators</h3><div class="detail-list"><div><span>12-month rent trend</span><strong id="trend-12"></strong></div><div><span>36-month rent trend</span><strong id="trend-36"></strong></div><div><span>Overall vacancy</span><strong id="vacancy"></strong></div><div><span>Rental availability</span><strong id="availability"></strong></div></div></section>
+            <section class="result-section"><h3>Property adjustments</h3><div id="adjustments" class="adjustments"></div></section>
+            <section id="investment-section" class="result-section hidden"><h3>Investment metrics</h3><div class="detail-list"><div><span>Annual gross rent</span><strong id="annual-gross"></strong></div><div><span>Annual NOI</span><strong id="noi"></strong></div><div><span>Gross rent multiplier</span><strong id="grm"></strong></div><div><span>Capitalization rate</span><strong id="cap-rate"></strong></div></div></section>
+            <section class="result-section notice"><h3>Comparable rentals</h3><p id="comparables-note"></p></section>
+            <details class="technical-details"><summary>Technical details</summary><pre id="raw-json"></pre></details>
+          </div>
+        </aside>
+      </div>
+    </section>
 
-    $("matchedAddress").textContent=`Matched address: ${geo.matched} · Census tract benchmark: ${tract.name}`;
-    $("estimate").textContent=money(estimate);$("range").textContent=`${money(low)}–${money(high)}`;
-    $("confidence").textContent=`${conf}/100`;$("confidenceBar").style.width=conf+"%";
-    $("rentSqft").textContent=sqft?money(estimate/sqft):"Add square feet";
-    $("medianRent").textContent=money(tract.median);
-    $("vacancy").textContent=Number.isFinite(vacRate)?`${vacRate.toFixed(1)}% area vacancy`:"N/A";
-    $("trend12").textContent=pct(t12);$("trend36").textContent=pct(t36);
+    <section id="how-it-works" class="section section-muted"><div class="container"><div class="section-heading centered"><p class="eyebrow">How it works</p><h2>One address, multiple public data sources</h2></div><div class="steps"><article><span>1</span><h3>Match the address</h3><p>The U.S. Census Geocoder identifies coordinates and geographic boundaries.</p></article><article><span>2</span><h3>Retrieve market context</h3><p>ACS and HUD data provide neighborhood and bedroom-specific rent benchmarks.</p></article><article><span>3</span><h3>Adjust for the unit</h3><p>Property characteristics and lease timing are applied transparently.</p></article></div></div></section>
+  </main>
 
-    const rows=[
-      ["Census tract median gross rent",money(tract.median)+` (${tract.year} ACS 5-year)`],
-      ["County median gross rent",county?money(county.median):"N/A"],
-      ["Renter-occupied units in tract",tract.renterOccupied.toLocaleString()],
-      ["Vacant housing units in tract",tract.vacant.toLocaleString()],
-      ["Property-detail adjustment",pct(adj*100)]
-    ];
-    $("benchmarks").innerHTML=rows.map(r=>`<tr><th>${r[0]}</th><td>${r[1]}</td></tr>`).join("");
-
-    const price=+$("purchasePrice").value,costs=+$("monthlyCosts").value;
-    let inv=[["Estimated annual gross rent",money(estimate*12)]];
-    if(price>0){
-      const noi=estimate*12-costs*12;
-      inv.push(["Estimated annual NOI",money(noi)],["Gross rent multiplier",(price/(estimate*12)).toFixed(1)],["Estimated capitalization rate",pct(noi/price*100)]);
-    } else inv.push(["Cap rate","Add purchase price and monthly costs"]);
-    $("investment").innerHTML=inv.map(r=>`<tr><th>${r[0]}</th><td>${r[1]}</td></tr>`).join("");
-
-    $("methodology").textContent=`Method: ${tract.year} ACS tract median gross rent, adjusted by bedroom count, bathrooms, property type, condition, parking, laundry, furnishing and lease month. This is a transparent heuristic, not a trained appraisal model.`;
-    $("empty").classList.add("hidden");$("results").classList.remove("hidden");$("status").textContent="Report generated.";
-    if(typeof gtag==="function")gtag("event","rent_estimate_generated",{data_source:"ACS",bedrooms:b});
-  }catch(err){$("status").textContent=err.message||"Unable to generate estimate."}
-  finally{btn.disabled=false}
-});
-</script>
+  <footer><div class="container footer-inner"><span>© <span id="year"></span> SavvyRent</span><span>Public-data rental intelligence</span></div></footer>
+  <script src="app.js"></script>
 </body>
 </html>
